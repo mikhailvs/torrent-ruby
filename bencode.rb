@@ -30,7 +30,7 @@ class String
       when 'd'
         decode_dict
       else
-        nil
+        raise "Cannot bdecode string."
       end
       @index += 1
     end
@@ -81,6 +81,8 @@ private
         accumulator << decode_int
       when 'd'
         accumulator << decode_dict
+      else
+        raise "Cannot bdecode string."
       end
       @index += 1
     end
@@ -100,22 +102,28 @@ private
         if key.empty?
           key = s
         else
+          raise "Invalid bencoded string" unless key.class == String
           hash[key] = s
           key = ''
         end
       when 'l'
+        raise "Invalid bencoded string" unless key.class == String
         hash[key] = decode_list
         key = ''
       when 'i'
+        raise "Invalid bencoded string" unless key.class == String
         hash[key] = decode_int
         key = ''
       when 'd'
         # This is to prevent infinite recursion, which would happen if
         # this method was called on a string that was just a dictionary.
         unless @index == last_visited
+          raise "Invalid bencoded string" unless key.class == String
           hash[key] = decode_dict @index
           key = ''
         end
+      else
+        raise "Cannot bdecode string."
       end
       @index += 1
     end
@@ -151,7 +159,10 @@ class Hash
   # Bencode a Hash.
   def bencode
     string = 'd'
-    self.each { |k, v| string << k.bencode + v.bencode }
+    self.each do |k, v|
+      raise "Hash key must be of type String" unless k.class == String
+      string << k.bencode + v.bencode
+    end
     string + 'e'
   end
 end

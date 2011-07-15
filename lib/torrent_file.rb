@@ -8,17 +8,23 @@ class TorrentFile
   # Create a TorrentFile object with/without the dictionary.
   def initialize contents = {}
     @contents = contents
-    @bencoded_contents = @contents.bencode
+    @bencoded_contents = @contents.bencode unless @contents.nil?
   end
   
   # Change contents of TorrentFile.
   def create contents = {}
     @contents = contents
+    @bencoded_contents = @contents.bencode unless @contents.nil?
   end
   
   # Get the Hash representation of the TorrentFile's dictionary.
   def to_h
     @contents
+  end
+
+  # Get the bencoded dictionary from the TorrentFile.
+  def bencoded
+    @bencoded_contents
   end
   
   # Create from a file (object or filename).

@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'test/unit'
-require '../lib/bencode.rb'
+require './lib/bencode.rb'
 
 class TestString < Test::Unit::TestCase
   def test_bencode

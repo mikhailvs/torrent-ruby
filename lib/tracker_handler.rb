@@ -40,13 +40,8 @@ class TrackerHandler
                   :host => announce_uri.host}
                   
     # Honor the parameter from @options. As far as the parameter itself goes,
-    # there is no particular reason for having it, but this class will connect
-    # to every tracker it can find otherwise. However, if you set this to false,
-    # the constructor will only connect to the tracker that is the value for the
-    # "announce" key in the metainfo file dictionary, and you can still connect to
-    # the other trackers with the establish_connections method.
-    # Note: The connection to the tracker at "announce" may fail, so at some point
-    # establish_connection ought to be called.
+    # there is no particular reason for having it, but you may not want to
+    # connect to every single constructor from the constructor.
     if @options[:use_announce_list_on_initial_connection]
       torrent_hash['announce-list'].each do |list|
         list.each do |tracker|
@@ -104,19 +99,20 @@ class TrackerHandler
     required_params = [:uploaded, :downloaded, :left, :compact, :no_peer_id, :event, :index]
     diff = required_params - params.keys
     if diff.empty?
-      request_string = "#{tracker[:path]}?"                 +
-                       "info_hash=#{@info_hash}&"           +
-                       "peer_id=#{@peer_id}&"               +
-                       "port=#{@options[:port]}&"           +
-                       "uploaded=#{params[:uploaded]}&"     +
-                       "downloaded=#{params[:downloaded]}&" +
-                       "left=#{params[:left]}&"             +
-                       "compact=#{params[:compact]}&"       +
-                       "no_peer_id=#{params[:no_peer_id]}&" +
-                       "event=#{params[:event]}&"           +
-                       "ip=#{params[:ip]}&"                 +
-                       "numwant=#{params[:numwant]}&"       +
-                       "key=#{params[:key]}&"               +
+      puts @trackers.inspect
+      request_string = "#{@connected_trackers[params[:index]][:tracker][:path]}?" +
+                       "info_hash=#{@info_hash}&"                                 +
+                       "peer_id=#{@peer_id}&"                                     +
+                       "port=#{@options[:port]}&"                                 +
+                       "uploaded=#{params[:uploaded]}&"                           +
+                       "downloaded=#{params[:downloaded]}&"                       +
+                       "left=#{params[:left]}&"                                   +
+                       "compact=#{params[:compact]}&"                             +
+                       "no_peer_id=#{params[:no_peer_id]}&"                       +
+                       "event=#{params[:event]}&"                                 +
+                       "ip=#{params[:ip]}&"                                       +
+                       "numwant=#{params[:numwant]}&"                             +
+                       "key=#{params[:key]}&"                                     +
                        "trackerid=#{params[:trackerid]}"
     else
       raise ArgumentError, "Required values for keys: #{diff.to_s} not provided"

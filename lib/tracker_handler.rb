@@ -75,7 +75,24 @@ class TrackerHandler
         end
       # Connection refused or timed out or whatever.
       rescue => error
-        @disconnected_trackers << {:tracker => tracker, :error => error}
+        @disconnected_trackers << {:tracker => tracker, :error => error, :failed => 1}
+      end
+    end
+  end
+  
+  # Retry a connection to trackers that failed. The range is for the trackers in
+  # the @disconnected trackers array and defaults to include all of them.
+  def retry_failed_connections range = 0..@disconnected_trackers.length - 1
+    for tracker in @disconnected_trackers[range]
+      begin
+        timeout(@options[:tracker_timeout]) do
+          @connected_trackers << {:tracker => tracker,
+            :connection => Net::HTTP.start(tracker[:host], tracker[:port])}
+          @disconnected_trackers.delete tracker
+        end
+      rescue => error
+        # Failed another time.
+        tracker[:failed] += 1
       end
     end
   end
@@ -105,11 +122,20 @@ class TrackerHandler
       raise ArgumentError, "Required values for keys: #{diff.to_s} not provided"
     end
     # Make, and return the body of, the request.
-    @connected_trackers[:connection].request(Net::HTTP::Get.new(request_string)).body
+    @connected_trackers[params[:index]][:connection].request(
+      Net::HTTP::Get.new(request_string)).body
   end
   
-  def scrape index
-    # TODO implement.
+  # Scrape tracker if the tracker supports it (determined as described in
+  # http://wiki.theory.org/BitTorrentSpecification#Tracker_.27scrape.27_Convention).
+  def scrape index, info_hashes = []
+    info_hash_string = ''
+    info_hashes.each { |hash| info_hash_string << "info_hash=#{hash}&" }
+    unless @connected_trackers[index][:tracker][:path] !~ /\/announce.+/
+      str = @connected_trackers[index][:tracker][:path].gsub 'announce', 'scrape'
+      @connected_trackers[index][:tracker][:connection].request(
+        Net::HTTP.Get.new("#{str}?#{info_hash_string}")).body
+    end
   end
   
 private
@@ -117,9 +143,5 @@ private
   # and url-encode.
   def generate_peer_id
     URI.encode Digest::SHA1.digest(Time.now.hash.to_s).force_encoding('binary')
-  end
-  
-  def supports_scrape?
-    # TODO implement.
   end
 end

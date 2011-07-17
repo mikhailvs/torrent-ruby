@@ -3,6 +3,7 @@
 require 'test/unit'
 require 'fileutils'
 require 'digest/sha2'
+
 require_relative '../lib/torrent_file.rb'
 
 class TestTorrentFile < Test::Unit::TestCase

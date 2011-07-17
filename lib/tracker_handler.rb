@@ -69,6 +69,7 @@ class TrackerHandler
       next unless tracker[:scheme] == 'http'
       begin
         timeout(@options[:tracker_timeout]) do
+          # TODO add field to identify whether or not the tracker supports scraping.
           @connected_trackers << {:tracker => tracker,
             :connection => Net::HTTP.start(tracker[:host], tracker[:port])}
         end
@@ -107,10 +108,18 @@ class TrackerHandler
     @connected_trackers[:connection].request(Net::HTTP::Get.new(request_string)).body
   end
   
+  def scrape index
+    # TODO implement.
+  end
+  
 private
   # Generate a peer_id for the GET request. It can be arbitrary but has to be 20 bytes
   # and url-encode.
   def generate_peer_id
     URI.encode Digest::SHA1.digest(Time.now.hash.to_s).force_encoding('binary')
+  end
+  
+  def supports_scrape?
+    # TODO implement.
   end
 end

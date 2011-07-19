@@ -5,16 +5,17 @@ require 'digest/sha1'
 require 'uri'
 require 'timeout'
 
+require 'logger'
+
 # Class for handling things related to trackers. It serves as a common place to perform
 # actions with all the trackers defined in a .torrent metainfo file's dictionary.
 
 class TrackerHandler
-  attr_reader :connected_trackers, :disconnected_trackers
-  def initialize torrent, options = {:tracker_timeout => 10, # Default is 10, maybe too big?
-                                     :use_announce_list_on_initial_connection => true,
-                                     :port => 6881}
+  attr_reader :connected_trackers, :disconnected_trackers, :peer_id, :trackers
+  def initialize torrent, options = {}
     @torrent_file = torrent
-    @options = options
+    @options = {:tracker_timeout => 10, :use_announce_list_on_initial_connection => true,
+                :port => 6881}.merge(options)
     
     # Trackers we were able to connect to successfully.
     @connected_trackers = []
@@ -54,25 +55,25 @@ class TrackerHandler
     end
     
     # Set up connections for trackers.
-    establish_connections
+    # establish_connections
   end
   
   # Establish connections to the trackers defined in "announce-list".
-  def establish_connections
-    for tracker in @trackers
-      # TODO handle UDP trackers.
-      next unless tracker[:scheme] == 'http'
+  # Returns a range of the indexes it made.
+  def establish_connections index
+    # TODO handle UDP trackers.
+    if @trackers[index][:scheme] == 'http'
       begin
         timeout(@options[:tracker_timeout]) do
-          # TODO add field to identify whether or not the tracker supports scraping.
-          @connected_trackers << {:tracker => tracker,
-            :connection => Net::HTTP.start(tracker[:host], tracker[:port])}
+          @connected_trackers << {:tracker => @trackers[index],
+            :connection => Net::HTTP.start(@trackers[index][:host], @trackers[index][:port])}
         end
       # Connection refused or timed out or whatever.
       rescue => error
-        @disconnected_trackers << {:tracker => tracker, :error => error, :failed => 1}
+        @disconnected_trackers << {:tracker => @trackers[index], :error => error, :failed => 1}
       end
     end
+    @connected_trackers.length - 1
   end
   
   # Retry a connection to trackers that failed. The range is for the trackers in
@@ -94,13 +95,28 @@ class TrackerHandler
   
   # Make http request to the tracker and get results.
   def request params = {}
+    log = Logger.new 'tracker_handler.request.log'
+    # If there's nothing to connect to. Catch this exception.
+    # raise Exception, "No trackers connected." if @connected_trackers.empty?  
+
     # All parameters defined in the specification are required except for ip, numwant,
     # key and trackerid.
     required_params = [:uploaded, :downloaded, :left, :compact, :no_peer_id, :event, :index]
     diff = required_params - params.keys
+    
+    connection = nil
+    for tracker in @connected_trackers
+      if tracker[:tracker] == @trackers[params[:index]]
+        connection = tracker[:connection]
+      end
+    end
+    
+    if connection.nil?
+      connection = @connected_trackers[establish_connections params[:index]]
+    end
+    
     if diff.empty?
-      puts @trackers.inspect
-      request_string = "#{@connected_trackers[params[:index]][:tracker][:path]}?" +
+      request_string = "#{@trackers[params[:index]][:path]}?" +
                        "info_hash=#{@info_hash}&"                                 +
                        "peer_id=#{@peer_id}&"                                     +
                        "port=#{@options[:port]}&"                                 +
@@ -117,9 +133,11 @@ class TrackerHandler
     else
       raise ArgumentError, "Required values for keys: #{diff.to_s} not provided"
     end
+    log.info('@connected_trackers') { @connected_trackers.inspect }
+    log.info('params') { params.inspect }
+    log.info('request_string') { request_string }
     # Make, and return the body of, the request.
-    @connected_trackers[params[:index]][:connection].request(
-      Net::HTTP::Get.new(request_string)).body
+    connection[:connection].request(Net::HTTP::Get.new request_string).body
   end
   
   # Scrape tracker if the tracker supports it (determined as described in

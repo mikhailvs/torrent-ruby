@@ -18,7 +18,7 @@ class TestTrackerHandler < Test::Unit::TestCase
   
   def test_establish_connection
     assert_nothing_raised(Exception) do
-      @@tracker_handler.establish_connections
+      @@tracker_handler.establish_connections 0
     end
   end
   

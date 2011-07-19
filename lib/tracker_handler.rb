@@ -5,8 +5,6 @@ require 'digest/sha1'
 require 'uri'
 require 'timeout'
 
-require 'logger'
-
 # Class for handling things related to trackers. It serves as a common place to perform
 # actions with all the trackers defined in a .torrent metainfo file's dictionary.
 
@@ -104,18 +102,18 @@ class TrackerHandler
     required_params = [:uploaded, :downloaded, :left, :compact, :no_peer_id, :event, :index]
     diff = required_params - params.keys
     
-    connection = nil
-    for tracker in @connected_trackers
-      if tracker[:tracker] == @trackers[params[:index]]
-        connection = tracker[:connection]
-      end
-    end
-    
-    if connection.nil?
-      connection = @connected_trackers[establish_connections params[:index]]
-    end
-    
     if diff.empty?
+      connection = nil
+      for tracker in @connected_trackers
+        if tracker[:tracker] == @trackers[params[:index]]
+          connection = tracker[:connection]
+        end
+      end
+      
+      if connection.nil?
+        connection = @connected_trackers[establish_connections params[:index]]
+      end
+    
       request_string = "#{@trackers[params[:index]][:path]}?" +
                        "info_hash=#{@info_hash}&"                                 +
                        "peer_id=#{@peer_id}&"                                     +
@@ -133,9 +131,6 @@ class TrackerHandler
     else
       raise ArgumentError, "Required values for keys: #{diff.to_s} not provided"
     end
-    log.info('@connected_trackers') { @connected_trackers.inspect }
-    log.info('params') { params.inspect }
-    log.info('request_string') { request_string }
     # Make, and return the body of, the request.
     connection[:connection].request(Net::HTTP::Get.new request_string).body
   end

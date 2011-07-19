@@ -51,27 +51,26 @@ class TrackerHandler
         end
       end
     end
-    
-    # Set up connections for trackers.
-    # establish_connections
   end
   
   # Establish connections to the trackers defined in "announce-list".
   # Returns a range of the indexes it made.
-  def establish_connections index
+  def establish_connection index
     # TODO handle UDP trackers.
+    success = false
     if @trackers[index][:scheme] == 'http'
       begin
         timeout(@options[:tracker_timeout]) do
           @connected_trackers << {:tracker => @trackers[index],
             :connection => Net::HTTP.start(@trackers[index][:host], @trackers[index][:port])}
+          success = true
         end
       # Connection refused or timed out or whatever.
       rescue => error
         @disconnected_trackers << {:tracker => @trackers[index], :error => error, :failed => 1}
       end
     end
-    @connected_trackers.length - 1
+    success
   end
   
   # Retry a connection to trackers that failed. The range is for the trackers in
@@ -93,7 +92,6 @@ class TrackerHandler
   
   # Make http request to the tracker and get results.
   def request params = {}
-    log = Logger.new 'tracker_handler.request.log'
     # If there's nothing to connect to. Catch this exception.
     # raise Exception, "No trackers connected." if @connected_trackers.empty?  
 
@@ -111,9 +109,10 @@ class TrackerHandler
       end
       
       if connection.nil?
-        connection = @connected_trackers[establish_connections params[:index]]
+        connection = establish_connection(params[:index]) ?
+          @connected_trackers[-1] : raise(Exception, "Could not connect to tracker")
       end
-    
+      
       request_string = "#{@trackers[params[:index]][:path]}?" +
                        "info_hash=#{@info_hash}&"             +
                        "peer_id=#{@peer_id}&"                 +
@@ -131,8 +130,10 @@ class TrackerHandler
     else
       raise ArgumentError, "Required values for keys: #{diff.to_s} not provided"
     end
+    raise Exception, "UDP tracker not supported or some other issue" if connection.nil?
     # Make, and return the body of, the request.
-    connection[:connection].request(Net::HTTP::Get.new request_string).body
+    response = connection[:connection].request(Net::HTTP::Get.new request_string)
+    Hash[:body => response.body, :code => response.code]
   end
   
   # Scrape tracker if the tracker supports it (determined as described in

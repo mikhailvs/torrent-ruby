@@ -25,6 +25,10 @@ file = TorrentFile.open '/home/mikhail/Downloads/Doctor_Who_(2005)_-_Complete_Se
 
 tracker_handler = TrackerHandler.new file, :tracker_timeout => 10
 
-response = tracker_handler.request :uploaded => 1, :downloaded => 2, :left => 5, :compact => 0,
-                                   :no_peer_id => 0, :event => 'start', :index => 3
-puts response
+response = tracker_handler.request :uploaded => 0, :downloaded => 0, :left => 5, :compact => 0,
+                                   :no_peer_id => 0, :event => 'started', :index => 3
+peers = response[:body].bdecode['peers']
+puts response[:code]
+
+count = 0
+puts peers.unpack('C*').length

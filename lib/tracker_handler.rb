@@ -115,18 +115,18 @@ class TrackerHandler
       end
     
       request_string = "#{@trackers[params[:index]][:path]}?" +
-                       "info_hash=#{@info_hash}&"                                 +
-                       "peer_id=#{@peer_id}&"                                     +
-                       "port=#{@options[:port]}&"                                 +
-                       "uploaded=#{params[:uploaded]}&"                           +
-                       "downloaded=#{params[:downloaded]}&"                       +
-                       "left=#{params[:left]}&"                                   +
-                       "compact=#{params[:compact]}&"                             +
-                       "no_peer_id=#{params[:no_peer_id]}&"                       +
-                       "event=#{params[:event]}&"                                 +
-                       "ip=#{params[:ip]}&"                                       +
-                       "numwant=#{params[:numwant]}&"                             +
-                       "key=#{params[:key]}&"                                     +
+                       "info_hash=#{@info_hash}&"             +
+                       "peer_id=#{@peer_id}&"                 +
+                       "port=#{@options[:port]}&"             +
+                       "uploaded=#{params[:uploaded]}&"       +
+                       "downloaded=#{params[:downloaded]}&"   +
+                       "left=#{params[:left]}&"               +
+                       "compact=#{params[:compact]}&"         +
+                       "no_peer_id=#{params[:no_peer_id]}&"   +
+                       "event=#{params[:event]}&"             +
+                       "ip=#{params[:ip]}&"                   +
+                       "numwant=#{params[:numwant]}&"         +
+                       "key=#{params[:key]}&"                 +
                        "trackerid=#{params[:trackerid]}"
     else
       raise ArgumentError, "Required values for keys: #{diff.to_s} not provided"

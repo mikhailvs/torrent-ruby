@@ -21,14 +21,17 @@ class Peer
   end
 end
 
-file = TorrentFile.open '/home/mikhail/Downloads/Doctor_Who_(2005)_-_Complete_Season_5_(Xvid_MP3).5649103.TPB.torrent'
+file = TorrentFile.open '../test/extra/ubuntu-10.04-netbook-i386.iso.torrent'
+
+length = file.to_h['info']['length']
 
 tracker_handler = TrackerHandler.new file, :tracker_timeout => 10
 
-response = tracker_handler.request :uploaded => 0, :downloaded => 0, :left => 5, :compact => 0,
-                                   :no_peer_id => 0, :event => 'started', :index => 3
+response = tracker_handler.request :uploaded => 1, :downloaded => 1, :left => length, :compact => 0,
+                                   :no_peer_id => 1, :event => 'started', :index => 0
+
 peers = response[:body].bdecode['peers']
 puts response[:code]
 
 count = 0
-puts peers.unpack('C*').length
+puts peers.unpack('C*').inspect

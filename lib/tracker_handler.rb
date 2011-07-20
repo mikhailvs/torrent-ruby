@@ -122,11 +122,14 @@ class TrackerHandler
                        "left=#{params[:left]}&"               +
                        "compact=#{params[:compact]}&"         +
                        "no_peer_id=#{params[:no_peer_id]}&"   +
-                       "event=#{params[:event]}&"             +
-                       "ip=#{params[:ip]}&"                   +
-                       "numwant=#{params[:numwant]}&"         +
-                       "key=#{params[:key]}&"                 +
-                       "trackerid=#{params[:trackerid]}"
+                       "event=#{params[:event]}"
+
+      # Optional parameters need to be added separately because otherwise some trackers
+      # will freak out.
+      request_string += "&ip=#{params[:ip]}" if params.keys.include? :ip
+      request_string += "&numwant=#{params[:numwant]}" if params.keys.include? :numwant
+      request_string += "&key=#{params[:key]}" if params.keys.include? :key
+      request_string += "&key=#{params[:trackerid]}" if params.keys.include? :trackerid
     else
       raise ArgumentError, "Required values for keys: #{diff.to_s} not provided"
     end

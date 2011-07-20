@@ -150,6 +150,16 @@ class TrackerHandler
         Net::HTTP.Get.new("#{str}?#{info_hash_string}")).body
     end
   end
+
+  def self.from_binary_peers string
+    bytes = string.unpack 'C*'
+    peers = []
+    until bytes.empty?
+      peers << {:ip => bytes[0..3].reverse.join('.'), :port => bytes[5] << 8 | bytes[4]}
+      bytes = bytes[6..-1]
+    end
+    peers
+  end
   
 private
   # Generate a peer_id for the GET request. It can be arbitrary but has to be 20 bytes

@@ -33,5 +33,4 @@ response = tracker_handler.request :uploaded => 1, :downloaded => 1, :left => le
 peers = response[:body].bdecode['peers']
 puts response[:code]
 
-count = 0
-puts peers.unpack('C*').inspect
+puts TrackerHandler::from_binary_peers(peers)

@@ -151,11 +151,20 @@ class TrackerHandler
     end
   end
 
+  # Static method for getting an array of hashes representing peers in a string from a
+  # tracker using the binary model for peers.
   def self.from_binary_peers string
     bytes = string.unpack 'C*'
     peers = []
     until bytes.empty?
-      peers << {:ip => bytes[0..3].reverse.join('.'), :port => bytes[5] << 8 | bytes[4]}
+      # Host is big-endian.
+      if [1].pack('I') == [1].pack('N')
+        peers << {:ip => bytes[0..3].join('.'), :port => bytes[4] << 8 | bytes[5]}
+      # Host is little-endian
+      else
+        # IP is in the first 4 bytes, port is in last 2.
+        peers << {:ip => bytes[0..3].reverse.join('.'), :port => bytes[5] << 8 | bytes[4]}
+      end
       bytes = bytes[6..-1]
     end
     peers

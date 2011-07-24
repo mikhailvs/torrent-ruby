@@ -1,1 +1,1 @@
-A pure Ruby implementation of the BitTorrent protocol
+A Ruby library for dealing with .torrent files and trackers.

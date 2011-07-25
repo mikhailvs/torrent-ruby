@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+
+  <title>Class: TrackerHandler</title>
+
+  <link rel="stylesheet" href="./rdoc.css" type="text/css" media="screen" />
+
+  <script src="./js/jquery.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./js/thickbox-compressed.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./js/quicksearch.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./js/darkfish.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+<body id="top" class="class">
+
+  <div id="metadata">
+    <div id="home-metadata">
+      <div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="./index.html">Home</a>
+          <a href="./index.html#classes">Classes</a>
+          <a href="./index.html#methods">Methods</a>
+        </h3>
+      </div>
+    </div>
+
+    <div id="file-metadata">
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li><a href="./lib/tracker_handler_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/tracker_handler.rb">lib/tracker_handler.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
+
+      
+    </div>
+
+    <div id="class-metadata">
+      
+      <!-- Parent Class -->
+      <div id="parent-class-section" class="section">
+        <h3 class="section-header">Parent</h3>
+        
+        <p class="link">Object</p>
+        
+      </div>
+      
+
+      
+
+      
+
+      
+      <!-- Method Quickref -->
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+          <li><a href="#method-c-from_binary_peers">::from_binary_peers</a></li>
+          
+          <li><a href="#method-c-new">::new</a></li>
+          
+          <li><a href="#method-i-establish_connection">#establish_connection</a></li>
+          
+          <li><a href="#method-i-request">#request</a></li>
+          
+          <li><a href="#method-i-retry_failed_connections">#retry_failed_connections</a></li>
+          
+          <li><a href="#method-i-scrape">#scrape</a></li>
+          
+        </ul>
+      </div>
+      
+
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class/Module Index
+          <span class="search-toggle"><img src="./images/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <ul class="link-list">
+        
+          <li><a href="./Array.html">Array</a></li>
+        
+          <li><a href="./Bignum.html">Bignum</a></li>
+        
+          <li><a href="./Fixnum.html">Fixnum</a></li>
+        
+          <li><a href="./Hash.html">Hash</a></li>
+        
+          <li><a href="./String.html">String</a></li>
+        
+          <li><a href="./TorrentFile.html">TorrentFile</a></li>
+        
+          <li><a href="./TrackerHandler.html">TrackerHandler</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+
+      
+    </div>
+  </div>
+
+  <div id="documentation">
+    <h1 class="class">TrackerHandler</h1>
+
+    <div id="description" class="description">
+      
+<p>Class for handling things related to trackers. It serves as a common place
+to perform actions with all the trackers defined in a .torrent metainfo
+file’s dictionary.</p>
+
+    </div><!-- description -->
+
+    
+    <div id="5Buntitled-5D" class="documentation-section">
+      
+
+      
+
+      
+
+      
+      <!-- Attributes -->
+      <div id="attribute-method-details" class="method-section section">
+        <h3 class="section-header">Attributes</h3>
+
+        
+        <div id="connected_trackers-attribute-method" class="method-detail">
+          <a name="connected_trackers"></a>
+          
+          <div class="method-heading attribute-method-heading">
+            <span class="method-name">connected_trackers</span><span
+              class="attribute-access-type">[R]</span>
+          </div>
+
+          <div class="method-description">
+          
+          
+          
+          </div>
+        </div>
+        
+        <div id="disconnected_trackers-attribute-method" class="method-detail">
+          <a name="disconnected_trackers"></a>
+          
+          <div class="method-heading attribute-method-heading">
+            <span class="method-name">disconnected_trackers</span><span
+              class="attribute-access-type">[R]</span>
+          </div>
+
+          <div class="method-description">
+          
+          
+          
+          </div>
+        </div>
+        
+        <div id="peer_id-attribute-method" class="method-detail">
+          <a name="peer_id"></a>
+          
+          <div class="method-heading attribute-method-heading">
+            <span class="method-name">peer_id</span><span
+              class="attribute-access-type">[R]</span>
+          </div>
+
+          <div class="method-description">
+          
+          
+          
+          </div>
+        </div>
+        
+        <div id="trackers-attribute-method" class="method-detail">
+          <a name="trackers"></a>
+          
+          <div class="method-heading attribute-method-heading">
+            <span class="method-name">trackers</span><span
+              class="attribute-access-type">[R]</span>
+          </div>
+
+          <div class="method-description">
+          
+          
+          
+          </div>
+        </div>
+        
+      </div><!-- attribute-method-details -->
+      
+
+      <!-- Methods -->
+      
+      <div id="public-class-method-details" class="method-section section">
+        <h3 class="section-header">Public Class Methods</h3>
+
+      
+        <div id="from_binary_peers-method" class="method-detail ">
+          <a name="method-c-from_binary_peers"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">from_binary_peers</span><span
+              class="method-args">(string)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Static method for getting an array of hashes representing peers in a string
+from a tracker using the binary model for peers.</p>
+            
+
+            
+            <div class="method-source-code" id="from_binary_peers-source">
+<pre>
+<span class="ruby-comment"># File lib/tracker_handler.rb, line 175</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">from_binary_peers</span> <span class="ruby-identifier">string</span>
+  <span class="ruby-identifier">bytes</span> = <span class="ruby-identifier">string</span>.<span class="ruby-identifier">unpack</span> <span class="ruby-string">'C*'</span>
+  <span class="ruby-identifier">peers</span> = []
+  <span class="ruby-keyword">until</span> <span class="ruby-identifier">bytes</span>.<span class="ruby-identifier">empty?</span>
+    <span class="ruby-comment"># Host is big-endian.</span>
+    <span class="ruby-keyword">if</span> [<span class="ruby-value">1</span>].<span class="ruby-identifier">pack</span>(<span class="ruby-string">'I'</span>) <span class="ruby-operator">==</span> [<span class="ruby-value">1</span>].<span class="ruby-identifier">pack</span>(<span class="ruby-string">'N'</span>)
+      <span class="ruby-identifier">peers</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-value">:ip</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">bytes</span>[<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">3</span>].<span class="ruby-identifier">join</span>(<span class="ruby-string">'.'</span>), <span class="ruby-value">:port</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">bytes</span>[<span class="ruby-value">4</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">8</span> <span class="ruby-operator">|</span> <span class="ruby-identifier">bytes</span>[<span class="ruby-value">5</span>]}
+    <span class="ruby-comment"># Host is little-endian</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-comment"># IP is in the first 4 bytes, port is in last 2.</span>
+      <span class="ruby-identifier">peers</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-value">:ip</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">bytes</span>[<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">3</span>].<span class="ruby-identifier">reverse</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">'.'</span>), <span class="ruby-value">:port</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">bytes</span>[<span class="ruby-value">5</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">8</span> <span class="ruby-operator">|</span> <span class="ruby-identifier">bytes</span>[<span class="ruby-value">4</span>]}
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">bytes</span> = <span class="ruby-identifier">bytes</span>[<span class="ruby-value">6</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>]
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">peers</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- from_binary_peers-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- from_binary_peers-method -->
+
+      
+        <div id="new-method" class="method-detail ">
+          <a name="method-c-new"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">new</span><span
+              class="method-args">(torrent, options = {})</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="new-source">
+<pre>
+<span class="ruby-comment"># File lib/tracker_handler.rb, line 32</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span> <span class="ruby-identifier">torrent</span>, <span class="ruby-identifier">options</span> = {}
+  <span class="ruby-ivar">@torrent_file</span> = <span class="ruby-identifier">torrent</span>
+  <span class="ruby-ivar">@options</span> = {<span class="ruby-value">:tracker_timeout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">10</span>, <span class="ruby-value">:use_announce_list_on_initial_connection</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>,
+              <span class="ruby-value">:port</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">6881</span>}.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">options</span>)
+  
+  <span class="ruby-comment"># Trackers we were able to connect to successfully.</span>
+  <span class="ruby-ivar">@connected_trackers</span> = []
+  
+  <span class="ruby-comment"># Trackers that timed out or refused connection.</span>
+  <span class="ruby-ivar">@disconnected_trackers</span> = []
+  
+  <span class="ruby-comment"># Set up .torrent file information for GET requests</span>
+  <span class="ruby-identifier">info</span> = <span class="ruby-ivar">@torrent_file</span>.<span class="ruby-identifier">to_h</span>[<span class="ruby-string">'info'</span>].<span class="ruby-identifier">bencode</span>
+  
+  <span class="ruby-comment"># This is what will be passed for the info_hash GET parameter.</span>
+  <span class="ruby-ivar">@info_hash</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">encode</span> <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA1</span>.<span class="ruby-identifier">digest</span>(<span class="ruby-identifier">info</span>).<span class="ruby-identifier">force_encoding</span>(<span class="ruby-string">'binary'</span>)
+  
+  <span class="ruby-comment"># This is what will be passed for the peer_id GET parameter.</span>
+  <span class="ruby-ivar">@peer_id</span> = <span class="ruby-identifier">generate_peer_id</span>
+  
+  <span class="ruby-comment"># Set up hash of tracker info for the torrent (from announce and announce-list).</span>
+  <span class="ruby-ivar">@trackers</span> = []
+  <span class="ruby-identifier">torrent_hash</span> = <span class="ruby-ivar">@torrent_file</span>.<span class="ruby-identifier">to_h</span>
+  <span class="ruby-identifier">announce_uri</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span> <span class="ruby-identifier">torrent_hash</span>[<span class="ruby-string">'announce'</span>]
+  <span class="ruby-ivar">@trackers</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-value">:url</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">announce_uri</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-value">:scheme</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">announce_uri</span>.<span class="ruby-identifier">scheme</span>,
+                <span class="ruby-value">:port</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">announce_uri</span>.<span class="ruby-identifier">port</span>, <span class="ruby-value">:path</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">announce_uri</span>.<span class="ruby-identifier">path</span>,
+                <span class="ruby-value">:host</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">announce_uri</span>.<span class="ruby-identifier">host</span>}
+                
+  <span class="ruby-comment"># Honor the parameter from @options. As far as the parameter itself goes,</span>
+  <span class="ruby-comment"># there is no particular reason for having it, but you may not want to</span>
+  <span class="ruby-comment"># connect to every single constructor from the constructor.</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@options</span>[<span class="ruby-value">:use_announce_list_on_initial_connection</span>]
+    <span class="ruby-identifier">torrent_hash</span>[<span class="ruby-string">'announce-list'</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">list</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">list</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">tracker</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">tracker_uri</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span> <span class="ruby-identifier">tracker</span>
+        <span class="ruby-ivar">@trackers</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-value">:url</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">tracker_uri</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-value">:scheme</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">tracker_uri</span>.<span class="ruby-identifier">scheme</span>,
+                      <span class="ruby-value">:port</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">tracker_uri</span>.<span class="ruby-identifier">port</span>, <span class="ruby-value">:path</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">tracker_uri</span>.<span class="ruby-identifier">path</span>,
+                      <span class="ruby-value">:host</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">tracker_uri</span>.<span class="ruby-identifier">host</span>}
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- new-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- new-method -->
+
+      
+      </div><!-- public-class-method-details -->
+    
+      <div id="public-instance-method-details" class="method-section section">
+        <h3 class="section-header">Public Instance Methods</h3>
+
+      
+        <div id="establish_connection-method" class="method-detail ">
+          <a name="method-i-establish_connection"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">establish_connection</span><span
+              class="method-args">(index)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Establish connections to the trackers defined in “announce-list”. Returns a
+range of the indexes it made.</p>
+            
+
+            
+            <div class="method-source-code" id="establish_connection-source">
+<pre>
+<span class="ruby-comment"># File lib/tracker_handler.rb, line 77</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">establish_connection</span> <span class="ruby-identifier">index</span>
+  <span class="ruby-comment"># TODO handle UDP trackers.</span>
+  <span class="ruby-identifier">success</span> = <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@trackers</span>[<span class="ruby-identifier">index</span>][<span class="ruby-value">:scheme</span>] <span class="ruby-operator">==</span> <span class="ruby-string">'http'</span>
+    <span class="ruby-keyword">begin</span>
+      <span class="ruby-identifier">timeout</span>(<span class="ruby-ivar">@options</span>[<span class="ruby-value">:tracker_timeout</span>]) <span class="ruby-keyword">do</span>
+        <span class="ruby-ivar">@connected_trackers</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-value">:tracker</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@trackers</span>[<span class="ruby-identifier">index</span>],
+          <span class="ruby-value">:connection</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">start</span>(<span class="ruby-ivar">@trackers</span>[<span class="ruby-identifier">index</span>][<span class="ruby-value">:host</span>], <span class="ruby-ivar">@trackers</span>[<span class="ruby-identifier">index</span>][<span class="ruby-value">:port</span>])}
+        <span class="ruby-identifier">success</span> = <span class="ruby-keyword">true</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-comment"># Connection refused or timed out or whatever.</span>
+    <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">error</span>
+      <span class="ruby-ivar">@disconnected_trackers</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-value">:tracker</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@trackers</span>[<span class="ruby-identifier">index</span>], <span class="ruby-value">:error</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">error</span>, <span class="ruby-value">:failed</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>}
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">success</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- establish_connection-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- establish_connection-method -->
+
+      
+        <div id="request-method" class="method-detail ">
+          <a name="method-i-request"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">request</span><span
+              class="method-args">(params = {})</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Make http request to the tracker and get results.</p>
+            
+
+            
+            <div class="method-source-code" id="request-source">
+<pre>
+<span class="ruby-comment"># File lib/tracker_handler.rb, line 113</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">request</span> <span class="ruby-identifier">params</span> = {}
+  <span class="ruby-comment"># If there's nothing to connect to. Catch this exception.</span>
+  <span class="ruby-comment"># raise Exception, &quot;No trackers connected.&quot; if @connected_trackers.empty?  </span>
+
+  <span class="ruby-comment"># All parameters defined in the specification are required except for ip, numwant,</span>
+  <span class="ruby-comment"># key and trackerid.</span>
+  <span class="ruby-identifier">required_params</span> = [<span class="ruby-value">:uploaded</span>, <span class="ruby-value">:downloaded</span>, <span class="ruby-value">:left</span>, <span class="ruby-value">:compact</span>, <span class="ruby-value">:no_peer_id</span>, <span class="ruby-value">:event</span>, <span class="ruby-value">:index</span>]
+  <span class="ruby-identifier">diff</span> = <span class="ruby-identifier">required_params</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">params</span>.<span class="ruby-identifier">keys</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">diff</span>.<span class="ruby-identifier">empty?</span>
+    <span class="ruby-identifier">connection</span> = <span class="ruby-keyword">nil</span>
+    <span class="ruby-keyword">for</span> <span class="ruby-identifier">tracker</span> <span class="ruby-keyword">in</span> <span class="ruby-ivar">@connected_trackers</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">tracker</span>[<span class="ruby-value">:tracker</span>] <span class="ruby-operator">==</span> <span class="ruby-ivar">@trackers</span>[<span class="ruby-identifier">params</span>[<span class="ruby-value">:index</span>]]
+        <span class="ruby-identifier">connection</span> = <span class="ruby-identifier">tracker</span>[<span class="ruby-value">:connection</span>]
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">nil?</span>
+      <span class="ruby-identifier">connection</span> = <span class="ruby-identifier">establish_connection</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:index</span>]) <span class="ruby-operator">?</span>
+        <span class="ruby-ivar">@connected_trackers</span>[<span class="ruby-value">-1</span>] <span class="ruby-operator">:</span> <span class="ruby-identifier">raise</span>(<span class="ruby-constant">Exception</span>, <span class="ruby-string">&quot;Could not connect to tracker&quot;</span>)
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-identifier">request_string</span> = <span class="ruby-node">&quot;#{@trackers[params[:index]][:path]}?&quot;</span> <span class="ruby-operator">+</span>
+                     <span class="ruby-node">&quot;info_hash=#{@info_hash}&amp;&quot;</span>             <span class="ruby-operator">+</span>
+                     <span class="ruby-node">&quot;peer_id=#{@peer_id}&amp;&quot;</span>                 <span class="ruby-operator">+</span>
+                     <span class="ruby-node">&quot;port=#{@options[:port]}&amp;&quot;</span>             <span class="ruby-operator">+</span>
+                     <span class="ruby-node">&quot;uploaded=#{params[:uploaded]}&amp;&quot;</span>       <span class="ruby-operator">+</span>
+                     <span class="ruby-node">&quot;downloaded=#{params[:downloaded]}&amp;&quot;</span>   <span class="ruby-operator">+</span>
+                     <span class="ruby-node">&quot;left=#{params[:left]}&amp;&quot;</span>               <span class="ruby-operator">+</span>
+                     <span class="ruby-node">&quot;compact=#{params[:compact]}&amp;&quot;</span>         <span class="ruby-operator">+</span>
+                     <span class="ruby-node">&quot;no_peer_id=#{params[:no_peer_id]}&amp;&quot;</span>   <span class="ruby-operator">+</span>
+                     <span class="ruby-node">&quot;event=#{params[:event]}&quot;</span>
+
+    <span class="ruby-comment"># Optional parameters need to be added separately because otherwise some trackers</span>
+    <span class="ruby-comment"># will freak out.</span>
+    <span class="ruby-identifier">request_string</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;&amp;ip=#{params[:ip]}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span> <span class="ruby-value">:ip</span>
+    <span class="ruby-identifier">request_string</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;&amp;numwant=#{params[:numwant]}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span> <span class="ruby-value">:numwant</span>
+    <span class="ruby-identifier">request_string</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;&amp;key=#{params[:key]}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span> <span class="ruby-value">:key</span>
+    <span class="ruby-identifier">request_string</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;&amp;key=#{params[:trackerid]}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span> <span class="ruby-value">:trackerid</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;Required values for keys: #{diff.to_s} not provided&quot;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">Exception</span>, <span class="ruby-string">&quot;UDP tracker not supported or some other issue&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">nil?</span>
+  <span class="ruby-comment"># Make, and return the body of, the request.</span>
+  <span class="ruby-identifier">response</span> = <span class="ruby-identifier">connection</span>[<span class="ruby-value">:connection</span>].<span class="ruby-identifier">request</span>(<span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Get</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">request_string</span>)
+  <span class="ruby-constant">Hash</span>[<span class="ruby-value">:body</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>, <span class="ruby-value">:code</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">response</span>.<span class="ruby-identifier">code</span>]
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- request-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- request-method -->
+
+      
+        <div id="retry_failed_connections-method" class="method-detail ">
+          <a name="method-i-retry_failed_connections"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">retry_failed_connections</span><span
+              class="method-args">(range = 0..@disconnected_trackers.length - 1)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Retry a connection to trackers that failed. The range is for the trackers
+in the @disconnected trackers array and defaults to include all of them.</p>
+            
+
+            
+            <div class="method-source-code" id="retry_failed_connections-source">
+<pre>
+<span class="ruby-comment"># File lib/tracker_handler.rb, line 97</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">retry_failed_connections</span> <span class="ruby-identifier">range</span> = <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-ivar">@disconnected_trackers</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>
+  <span class="ruby-keyword">for</span> <span class="ruby-identifier">tracker</span> <span class="ruby-keyword">in</span> <span class="ruby-ivar">@disconnected_trackers</span>[<span class="ruby-identifier">range</span>]
+    <span class="ruby-keyword">begin</span>
+      <span class="ruby-identifier">timeout</span>(<span class="ruby-ivar">@options</span>[<span class="ruby-value">:tracker_timeout</span>]) <span class="ruby-keyword">do</span>
+        <span class="ruby-ivar">@connected_trackers</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-value">:tracker</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">tracker</span>,
+          <span class="ruby-value">:connection</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">start</span>(<span class="ruby-identifier">tracker</span>[<span class="ruby-value">:host</span>], <span class="ruby-identifier">tracker</span>[<span class="ruby-value">:port</span>])}
+        <span class="ruby-ivar">@disconnected_trackers</span>.<span class="ruby-identifier">delete</span> <span class="ruby-identifier">tracker</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">error</span>
+      <span class="ruby-comment"># Failed another time.</span>
+      <span class="ruby-identifier">tracker</span>[<span class="ruby-value">:failed</span>] <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- retry_failed_connections-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- retry_failed_connections-method -->
+
+      
+        <div id="scrape-method" class="method-detail ">
+          <a name="method-i-scrape"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">scrape</span><span
+              class="method-args">(index, info_hashes = [])</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Scrape tracker if the tracker supports it (determined as described in <a
+href="http://wiki.theory.org/BitTorrentSpecification#Tracker_.27scrape.27_Convention">wiki.theory.org/BitTorrentSpecification#Tracker_.27scrape.27_Convention</a>).</p>
+            
+
+            
+            <div class="method-source-code" id="scrape-source">
+<pre>
+<span class="ruby-comment"># File lib/tracker_handler.rb, line 163</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">scrape</span> <span class="ruby-identifier">index</span>, <span class="ruby-identifier">info_hashes</span> = []
+  <span class="ruby-identifier">info_hash_string</span> = <span class="ruby-string">''</span>
+  <span class="ruby-identifier">info_hashes</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">hash</span><span class="ruby-operator">|</span> <span class="ruby-identifier">info_hash_string</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;info_hash=#{hash}&amp;&quot;</span> }
+  <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@connected_trackers</span>[<span class="ruby-identifier">index</span>][<span class="ruby-value">:tracker</span>][<span class="ruby-value">:path</span>] <span class="ruby-operator">!~</span> <span class="ruby-regexp">/\/announce.+/</span>
+    <span class="ruby-identifier">str</span> = <span class="ruby-ivar">@connected_trackers</span>[<span class="ruby-identifier">index</span>][<span class="ruby-value">:tracker</span>][<span class="ruby-value">:path</span>].<span class="ruby-identifier">gsub</span> <span class="ruby-string">'announce'</span>, <span class="ruby-string">'scrape'</span>
+    <span class="ruby-ivar">@connected_trackers</span>[<span class="ruby-identifier">index</span>][<span class="ruby-value">:tracker</span>][<span class="ruby-value">:connection</span>].<span class="ruby-identifier">request</span>(
+      <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-constant">Get</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;#{str}?#{info_hash_string}&quot;</span>)).<span class="ruby-identifier">body</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- scrape-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- scrape-method -->
+
+      
+      </div><!-- public-instance-method-details -->
+    
+    </div><!-- 5Buntitled-5D -->
+  
+
+  </div><!-- documentation -->
+
+  <div id="validator-badges">
+    <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+    <p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+      Rdoc Generator</a> 2</small>.</p>
+  </div>
+
+</body>
+</html>
+

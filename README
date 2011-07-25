@@ -1,1 +1,44 @@
 A Ruby library for dealing with .torrent files and trackers.
+
+Examples:
+  require 'torrent-ruby'
+
+  # bencoding data
+  {'a' => 'animal', 'b' => ['banana', 'bologna', 42]}.bencode
+  #=> "d1:a6:animal1:bl6:banana7:bolognai42eee"
+
+  # bdecoding data
+  "ld3:one1:a3:two1:b5:threei3eed4:fourd4:five3:sixeee".bdecode
+  #=> [{"one"=>"a", "two"=>"b", "three"=>3}, {"four"=>{"five"=>"six"}}]
+
+  # get a TorrentFile object from a torrent file
+  file = TorrentFile.open 'somefile.torrent'
+  
+  # get original contents of file
+  file.bencoded #=> some bencoded string
+
+  # get dictionary from .torrent file as ruby hash
+  file.to_h #=> dictionary from .torrent file
+
+  # save as new .torrent file
+  file.save 'newname.torrent'
+
+  # initialize a TrackerHandler object
+  handler = TrackerHandler.new TorrentFile.open('somefile.torrent'),
+                               :tracker_timeout => 5, :port => 42309
+
+  # get list of available trackers (as an array)
+  trackers = handler.trackers
+
+  # establish connection to tracker from index of a tracker
+  # from the above 'trackers' array
+  success = handler.establish_connection
+  connected_tracker = handler.connected_trackers.last
+  
+  # send request to a connected tracker
+  if success
+    response = connected_tracker.request :uploaded => 1, :downloaded => 10,
+              :left => 100, :compact = 0,
+              :no_peer_id => 0, :event => 'started',
+              :index => handler.trackers.find(connected_tracker)
+  end

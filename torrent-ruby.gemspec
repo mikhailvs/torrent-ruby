@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.summary = 'torrent-ruby is a library for easily handling' +
               'bencoding/bdecoding data, .torrent files and and' +
               'communication with bittorrent trackers.'
-  s.homepage = 'http://github.com/mikhailvs/torrent-ruby'
+  s.homepage = 'http://mikhailvs.github.com/torrent-ruby/'
   s.description = 'torrent-ruby is a library for easily handling' +
                   'bencoding/bdecoding data, .torrent files and and' +
                   'communication with bittorrent trackers.'

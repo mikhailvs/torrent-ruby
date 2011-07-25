@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+
+  <title>File: README [RDoc Documentation]</title>
+
+  <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet" />
+
+  <script src="./js/jquery.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="./js/thickbox-compressed.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="./js/quicksearch.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="./js/darkfish.js" type="text/javascript"
+    charset="utf-8"></script>
+</head>
+
+<body class="file">
+  <div id="metadata">
+    <div id="home-metadata">
+      <div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="./index.html">Home</a>
+          <a href="./index.html#classes">Classes</a>
+          <a href="./index.html#methods">Methods</a>
+        </h3>
+      </div>
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Files</h3>
+        <ul>
+        
+          <li class="file"><a href="./README.html">README</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class Index
+          <span class="search-toggle"><img src="./images/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <ul class="link-list">
+        
+          <li><a href="./Array.html">Array</a></li>
+        
+          <li><a href="./Bignum.html">Bignum</a></li>
+        
+          <li><a href="./Fixnum.html">Fixnum</a></li>
+        
+          <li><a href="./Hash.html">Hash</a></li>
+        
+          <li><a href="./String.html">String</a></li>
+        
+          <li><a href="./TorrentFile.html">TorrentFile</a></li>
+        
+          <li><a href="./TrackerHandler.html">TrackerHandler</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+
+      
+    </div>
+  </div>
+
+  <div id="documentation">
+    
+<p>A Ruby library for dealing with .torrent files and trackers.</p>
+
+<p>Examples:</p>
+
+<pre>require 'torrent-ruby'
+
+# bencoding data
+{'a' =&gt; 'animal', 'b' =&gt; ['banana', 'bologna', 42]}.bencode
+#=&gt; &quot;d1:a6:animal1:bl6:banana7:bolognai42eee&quot;
+
+# bdecoding data
+&quot;ld3:one1:a3:two1:b5:threei3eed4:fourd4:five3:sixeee&quot;.bdecode
+#=&gt; [{&quot;one&quot;=&gt;&quot;a&quot;, &quot;two&quot;=&gt;&quot;b&quot;, &quot;three&quot;=&gt;3}, {&quot;four&quot;=&gt;{&quot;five&quot;=&gt;&quot;six&quot;}}]
+
+# get a TorrentFile object from a torrent file
+file = TorrentFile.open 'somefile.torrent'
+
+# get original contents of file
+file.bencoded #=&gt; some bencoded string
+
+# get dictionary from .torrent file as ruby hash
+file.to_h #=&gt; dictionary from .torrent file
+
+# save as new .torrent file
+file.save 'newname.torrent'
+
+# initialize a TrackerHandler object
+handler = TrackerHandler.new TorrentFile.open('somefile.torrent'),
+                             :tracker_timeout =&gt; 5, :port =&gt; 42309
+
+# get list of available trackers (as an array)
+trackers = handler.trackers
+
+# establish connection to tracker from index of a tracker
+# from the above 'trackers' array
+success = handler.establish_connection
+connected_tracker = handler.connected_trackers.last
+
+# send request to a connected tracker
+if success
+  response = connected_tracker.request :uploaded =&gt; 1, :downloaded =&gt; 10,
+            :left =&gt; 100, :compact = 0,
+            :no_peer_id =&gt; 0, :event =&gt; 'started',
+            :index =&gt; handler.trackers.find(connected_tracker)
+end</pre>
+
+  </div>
+
+  <div id="validator-badges">
+    <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+    <p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+      Rdoc Generator</a> 2</small>.</p>
+  </div>
+</body>
+</html>
+

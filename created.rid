@@ -1,4 +1,6 @@
-Sun, 24 Jul 2011 17:18:30 -0700
-lib/torrent_file.rb	Sun, 24 Jul 2011 17:02:20 -0700
-lib/bencode.rb	Sun, 24 Jul 2011 17:02:20 -0700
-lib/tracker_handler.rb	Sun, 24 Jul 2011 17:02:20 -0700
+Mon, 25 Jul 2011 09:10:01 -0700
+lib/bencode.rb	Mon, 25 Jul 2011 08:59:46 -0700
+lib/torrent-ruby.rb	Mon, 25 Jul 2011 08:59:46 -0700
+lib/torrent_file.rb	Mon, 25 Jul 2011 08:59:46 -0700
+lib/tracker_handler.rb	Mon, 25 Jul 2011 08:59:46 -0700
+README	Mon, 25 Jul 2011 08:59:46 -0700

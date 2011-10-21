@@ -1,7 +1,7 @@
 A Ruby library for dealing with .torrent files and trackers.
 
 Examples:
-  require 'torrent-ruby'
+  require 'torrent_ruby'
 
   # bencoding data
   {'a' => 'animal', 'b' => ['banana', 'bologna', 42]}.bencode
@@ -24,21 +24,21 @@ Examples:
   file.save 'newname.torrent'
 
   # initialize a TrackerHandler object
-  handler = TrackerHandler.new TorrentFile.open('somefile.torrent'),
-                               :tracker_timeout => 5, :port => 42309
+  handler = TrackerHandler.new( TorrentFile.open('somefile.torrent'),
+                               :tracker_timeout => 5, :port => 42309)
 
   # get list of available trackers (as an array)
   trackers = handler.trackers
 
   # establish connection to tracker from index of a tracker
   # from the above 'trackers' array
-  success = handler.establish_connection
+  success = handler.establish_connection 0
   connected_tracker = handler.connected_trackers.last
-  
+
   # send request to a connected tracker
   if success
-    response = connected_tracker.request :uploaded => 1, :downloaded => 10,
+    response = handler.request( :uploaded => 1, :downloaded => 10,
               :left => 100, :compact = 0,
               :no_peer_id => 0, :event => 'started',
-              :index => handler.trackers.find(connected_tracker)
+              :index => 0)
   end

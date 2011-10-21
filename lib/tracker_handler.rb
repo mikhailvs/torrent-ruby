@@ -119,8 +119,8 @@ class TrackerHandler
     required_params = [:uploaded, :downloaded, :left, :compact, :no_peer_id, :event, :index]
     diff = required_params - params.keys
     
+    connection = nil
     if diff.empty?
-      connection = nil
       for tracker in @connected_trackers
         if tracker[:tracker] == @trackers[params[:index]]
           connection = tracker[:connection]
@@ -154,7 +154,7 @@ class TrackerHandler
     end
     raise Exception, "UDP tracker not supported or some other issue" if connection.nil?
     # Make, and return the body of, the request.
-    response = connection[:connection].request(Net::HTTP::Get.new request_string)
+    response = connection.request(Net::HTTP::Get.new request_string)
     Hash[:body => response.body, :code => response.code]
   end
   

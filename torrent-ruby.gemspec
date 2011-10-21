@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
                   'bencoding/bdecoding data, .torrent files and ' +
                   'communication with bittorrent trackers.'
   s.files = ['LICENSE', 'README', 'Rakefile', 'lib/bencode.rb',
-             'lib/torrent_file.rb', 'lib/tracker_handler.rb',
+             'lib/torrent_file.rb', 'lib/tracker_handler.rb', 'lib/torrent-ruby.rb',
              'test/test_bencode.rb', 'test/test_torrent_file.rb',
              'test/test_tracker_handler.rb',
              'test/extra/archlinux-2010.05-core-dual.iso.torrent',

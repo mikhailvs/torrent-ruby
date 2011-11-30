@@ -148,8 +148,8 @@ private
   end
 end
 
-class Fixnum
-  # Bencode a Fixnum.
+class Integer
+  # Bencode an Integer (covers Fixnum as well as Bignum).
   def bencode
     "i#{self}e"
   end
@@ -164,7 +164,7 @@ class Bignum
 end
 
 class Array
-  # Bencode a Array.
+  # Bencode an Array.
   def bencode
     string = 'l'
     self.each { |i| string << i.bencode }

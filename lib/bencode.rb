@@ -155,14 +155,6 @@ class Integer
   end
 end
 
-class Bignum
-  # Bencode a Bignum because the BitTorrent specification says that
-  # bencoded integers may be of arbitrary length.
-  def bencode
-    "i#{self}e"
-  end
-end
-
 class Array
   # Bencode an Array.
   def bencode

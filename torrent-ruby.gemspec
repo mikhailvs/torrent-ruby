@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name = 'torrent-ruby'
-  s.version = '0.1.4'
-  s.date =  '2011-07-24'
+  s.version = '0.1.5'
+  s.date =  '2012-12-17'
   s.authors = ["Mikhail Slyusarev"]
   s.email = 'slyusarevmikhail@gmail.com'
   s.summary = 'torrent-ruby is a library for easily handling ' +

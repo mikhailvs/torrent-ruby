@@ -1,7 +1,7 @@
 A Ruby library for dealing with .torrent files and trackers.
 
 Examples:
-  require 'torrent_ruby'
+  require 'torrent-ruby'
 
   # bencoding data
   {'a' => 'animal', 'b' => ['banana', 'bologna', 42]}.bencode

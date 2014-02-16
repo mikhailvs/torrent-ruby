@@ -26,10 +26,16 @@ require 'digest/sha2'
 require_relative '../lib/torrent_file.rb'
 
 class TestTorrentFile < Test::Unit::TestCase
-  @@contents = {'info' => 'very important', 'announce' => 'http://t.com',
-              'announce list' => [['one', 'two']],
-              'creation date' => 'today', 'comment' => 'like i said',
-              'created by' => 'me', 'encoding' => 'utf-8'}
+  @@contents = {
+    'info' => 'very important',
+    'announce' => 'http://t.com',
+    'announce list' => [['one', 'two']],
+    'creation date' => 'today',
+    'comment' => 'like i said',
+    'created by' => 'me',
+    'encoding' => 'utf-8'
+  }
+
   def test_initialize
     file = TorrentFile.new @@contents
     assert_equal @@contents, file.to_h

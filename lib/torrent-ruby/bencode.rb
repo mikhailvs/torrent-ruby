@@ -49,7 +49,7 @@ class String
       when 'd'
         decode_dict
       else
-        raise ArgumentError, "Cannot bdecode invalid string."
+        raise ArgumentError, 'Cannot bdecode invalid string.'
       end
       @index += 1
     end
@@ -91,6 +91,7 @@ private
     # Elements begin at one past the index of the 'l'.
     @index += 1
     while self[@index] != 'e'
+      raise ArgumentError, 'Cannot bdecode string, current object not terminated propery' if @index > self.length
       case self[@index]
       when /\d/
         accumulator << decode_str
@@ -101,7 +102,7 @@ private
       when 'd'
         accumulator << decode_dict
       else
-        raise ArgumentError, "Cannot bdecode string."
+        raise ArgumentError, 'Cannot bdecode string.'
       end
       @index += 1
     end
@@ -115,29 +116,31 @@ private
     # Note: keys may only ever be strings (from specification).
     key = ''
     while self[@index] != 'e'
+      # binding.pry
+      raise ArgumentError, 'Cannot bdecode string, current object not terminated propery' if @index > self.length
       case self[@index]
       when /\d/
         s = decode_str
         if key.empty?
           key = s
         else
-          raise ArgumentError, "Invalid bencoded string" if key.empty?
+          raise ArgumentError, 'Invalid bencoded string' if key.empty?
           hash[key] = s
           key = ''
         end
       when 'l'
-        raise ArgumentError, "Invalid bencoded string" if key.empty?
+        raise ArgumentError, 'Invalid bencoded string' if key.empty?
         hash[key] = decode_list
         key = ''
       when 'i'
-        raise ArgumentError, "Invalid bencoded string" if key.empty?
+        raise ArgumentError, 'Invalid bencoded string' if key.empty?
         hash[key] = decode_int
         key = ''
       when 'd'
         # This is to prevent infinite recursion, which would happen if
         # this method was called on a string that was just a dictionary.
         unless @index == last_visited
-          raise ArgumentError, "Invalid bencoded string" if key.empty?
+          raise ArgumentError, 'Invalid bencoded string' if key.empty?
           hash[key] = decode_dict @index
           key = ''
         end
@@ -169,8 +172,10 @@ class Hash
   def bencode
     string = 'd'
     self.each do |k, v|
-      raise ArgumentError, "Hash key must be of type String" unless k.class == String
-      string << k.bencode + v.bencode
+      # Symbols will be made into strings, because this seems to be an idiomatic thing in ruby, however they cannot be
+      # converted back in the same way
+      raise ArgumentError, 'Hash key must be of type String or Symbol' unless [String, Symbol].include?(k.class)
+      string << k.to_s.bencode + v.bencode
     end
     string + 'e'
   end

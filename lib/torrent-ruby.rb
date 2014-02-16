@@ -19,6 +19,13 @@
 # along with torrent-ruby. If not, see <http://www.gnu.org/licenses/>.
 ########################################################################
 
-require_relative 'bencode'
-require_relative 'torrent_file'
-require_relative 'tracker_handler'
+require 'net/http'
+require 'digest/sha1'
+require 'cgi'
+require 'timeout'
+require 'pry'
+
+require_relative './torrent-ruby/bencode'
+require_relative './torrent-ruby/torrent'
+require_relative './torrent-ruby/tracker'
+require_relative './torrent-ruby/peer'

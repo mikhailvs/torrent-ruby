@@ -25,13 +25,11 @@ require_relative '../lib/tracker_handler.rb'
 require_relative '../lib/torrent_file.rb'
 
 class TestTrackerHandler < Test::Unit::TestCase
-  @@torrent = TorrentFile.open Dir['test/extra/*.torrent'][0]
-  @@tracker_handler = TrackerHandler.new @@torrent, :tracker_timeout => 1,
-        :use_announce_list_on_initial_connection => false
+  @@torrent = TorrentFile.open(Dir['test/extra/*.torrent'][0])
+  @@tracker_handler = TrackerHandler.new(@@torrent, tracker_timeout: 1, use_announce_list_on_initial_connection: false)
   def test_initialize
     assert_nothing_raised(Exception) do
-      tracker_handler = TrackerHandler.new @@torrent, :tracker_timeout => 1,
-        :use_announce_list_on_initial_connection => false
+      tracker_handler = TrackerHandler.new(@@torrent, tracker_timeout: 1, use_announce_list_on_initial_connection: false)
     end
   end
   

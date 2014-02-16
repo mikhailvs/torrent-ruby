@@ -1,12 +1,14 @@
 class Tracker
 	attr_reader :url, :scheme, :port, :path, :host
 
-	def initialize url
+	def initialize url, info_hash, peer_id
 		@url = url.to_s
 		@scheme = url.scheme
 		@port = url.port
 		@path = url.path
 		@host = url.host
+		@info_hash = info_hash
+		@peer_id = peer_id
 	end
 
 	# Establish connections to this tracker
@@ -24,6 +26,25 @@ class Tracker
     end
     success
 	end
+
+	def get_peers numwant = 50
+    # NOTE: I think the bencoder is broken or something because when compact is not set, exception are thrown
+    # it needs to be investigated at some point
+    response = request(
+      info_hash: @info_hash,
+      compact: 1,
+      peer_id: @peer_id,
+      numwant: numwant
+    )
+
+    # dictionary mode
+    if response['peers'].is_a?(Array)
+      puts response['peers']
+      @peers = response['peers'].collect { |p| Peer.new(p['ip'], p['port']) }
+    else # binary mode
+      @peers = parse_binary_peers(response['peers'])
+    end
+  end
 
   # Make http request to the tracker and get results.
 	def request params = {}
@@ -65,5 +86,23 @@ class Tracker
       scrape_path = @path.gsub(/(.*?)announce(.*?)/, '\1scrape\2')
       @connection.request(Net::HTTP::Get.new("#{scrape_path}?#{info_hash_string}")).body.bdecode
     end
+  end
+
+  # parse the binary list of peers into a more manageable format
+  def parse_binary_peers peerslist
+    bytes = peerslist.unpack('C*')
+    peers = []
+    endianness = [1].pack('I') == [1].pack('N') ? :big : :little
+
+    until bytes.empty?
+      if endianness == :big
+        peers << Peer.new(bytes[0..3].join('.'), bytes[4] << 8 | bytes[5])
+      else
+        # IP is in the first 4 bytes, port is in last 2.
+        peers << Peer.new(bytes[0..3].reverse.join('.'), bytes[5] << 8 | bytes[4])
+      end
+      bytes = bytes[6..-1]
+    end
+    peers
   end
 end

@@ -22,7 +22,7 @@
 # Class for easily handling .torrent files.
 
 class Torrent
-  attr_reader :trackers, :peers
+  attr_reader :trackers, :peers, :info_hash
 
   # Create a TorrentFile object with/without the dictionary.
   def initialize contents = {}
@@ -32,29 +32,11 @@ class Torrent
     @info_hash = CGI::escape(Digest::SHA1.digest(@contents['info'].bencode).force_encoding('binary'))
 
     @peer_id = generate_peer_id
-    @trackers = [Tracker.new(URI.parse(@contents['announce']))]
+
+    @trackers = [Tracker.new(URI.parse(@contents['announce']), @info_hash, @peer_id)]
 
     (@contents['announc-list'] || []).each do |list|
-      list.each { |tracker| @trackers << Tracker.new(URI.parse(tracker)) }
-    end
-  end
-
-  # get the list of peers from the tracker
-  def get_peers
-    # NOTE: I think the bencoder is broken or something because when compact is not set, exception are thrown
-    # it needs to be investigated at some point
-    response = @trackers.first.request(
-      info_hash: @info_hash,
-      compact: 1,
-      peer_id: @peer_id
-    )
-
-    # dictionary mode
-    if response['peers'].is_a?(Array)
-      puts response['peers']
-      @peers = response['peers'].collect { |p| Peer.new(p['ip'], p['port']) }
-    else # binary mode
-      @peers = parse_binary_peers(response['peers'])
+      list.each { |tracker| @trackers << Tracker.new(URI.parse(tracker), @info_hash, @peer_id) }
     end
   end
 
@@ -97,23 +79,5 @@ private
   # and url-encode.
   def generate_peer_id
     CGI::escape(Digest::SHA1.digest(Time.now.hash.to_s).force_encoding('binary'))
-  end
-
-  # parse the binary list of peers into a more manageable format
-  def parse_binary_peers peerslist
-    bytes = peerslist.unpack('C*')
-    peers = []
-    endianness = [1].pack('I') == [1].pack('N') ? :big : :little
-
-    until bytes.empty?
-      if endianness == :big
-        peers << Peer.new(bytes[0..3].join('.'), bytes[4] << 8 | bytes[5])
-      else
-        # IP is in the first 4 bytes, port is in last 2.
-        peers << Peer.new(bytes[0..3].reverse.join('.'), bytes[5] << 8 | bytes[4])
-      end
-      bytes = bytes[6..-1]
-    end
-    peers
   end
 end
